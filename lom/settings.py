@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 from configurations import Configuration
+from django.core.urlresolvers import reverse_lazy
 
 import hashlib
 import os
@@ -191,7 +192,10 @@ class Production(Configuration):
     CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
     # allauth config
-    LOGIN_REDIRECT_URL = 'posts:main-page'
+    LOGIN_REDIRECT_URL = 'posts:list'
+    LOGIN_URL = 'posts:list'
+    ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy('posts:list')
+
 
     POST_PER_PAGE = 5
 

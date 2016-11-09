@@ -5,6 +5,7 @@ from django.db.models import Count
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from .models import Post
 from .categoryModels import Category
@@ -99,7 +100,10 @@ def post_create(request):
         instance.save()
         form.save_m2m()
         messages.success(request, "Saved")
-        return HttpResponseRedirect(instance.get_absolute_url())
+        if instance.status == "draft":
+            return HttpResponseRedirect(reverse('posts:draft_list'))
+        else:
+            return HttpResponseRedirect(instance.get_absolute_url())
     context = {
         "form": form,
     }
@@ -114,13 +118,17 @@ def post_update(request, slug=None):
     instance = get_object_or_404(Post, slug=slug)
     if instance.author != request.user:
         raise Http404
+
     form = PostForm(request.POST or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
         form.save_m2m()
         messages.success(request, "Saved")
-        return HttpResponseRedirect(instance.get_absolute_url())
+        if instance.status == "draft":
+            return HttpResponseRedirect(reverse('posts:draft_list'))
+        else:
+            return HttpResponseRedirect(instance.get_absolute_url())
 
     context = {
         "form": form,

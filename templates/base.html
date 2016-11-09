@@ -13,6 +13,7 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" />
         {% block head_extra %}{% endblock head_extra %}
     </head>
     <body>
@@ -26,6 +27,7 @@
                     <li class="pull-right"><a href="{% url 'account_login' %}">Login</a></li>
                 {% else %}
                      <li class="pull-right"><a href="{% url 'account_logout' %}">Logout</a></li>
+                     <li class="pull-right">{{ request.user }}</li>
                 {% endif %}
             </ol>
             <h3>Najnowsze posty</h3>
