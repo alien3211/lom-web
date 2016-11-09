@@ -9,8 +9,7 @@ from markdown_deux import markdown
 from taggit.managers import TaggableManager
 
 from .utils import get_read_time
-from django.utils.encoding import force_text
-# from categories.models import Category
+from .categoryModels import Category
 
 # Create your models here.
 
@@ -23,18 +22,6 @@ class PostPublishedManager(models.Manager):
         return super(PostPublishedManager, self).get_queryset().filter(status='draft')
 
 
-# class PostCategory(Category):
-#     def get_absolute_url(self):
-#         ancestors = list(self.get_ancestors()) + [self, ]
-#         return reverse('posts:category',args=['/'.join([force_text(i.slug) for i in ancestors])])
-#
-#     @property
-#     def path_name_category_list(self):
-#         ancestors = self.get_ancestors()
-#         return [force_text(i.name) for i in ancestors] + [self.name, ]
-#
-#     def path_category_list(self):
-#         return self.get_ancestors() + [self.name,]
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -50,7 +37,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    category = models.ForeignKey('categories.Category')
+    category = models.ForeignKey('posts.Category')
 
     tags = TaggableManager()
     objects = PostPublishedManager()
@@ -69,11 +56,6 @@ class Post(models.Model):
     def get_markdown(self):
         content = self.content
         return mark_safe(markdown(content))
-
-    @property
-    def ancestors_category_lists(self):
-        ancestors = self.category.get_ancestors()
-        return [force_text(i.name) for i in ancestors] + [self.category.name, ]
 
 
 def create_slug(instance, new_slug=None):

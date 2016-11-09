@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Moj blog {% endblock %}
 {% block content %}
-    <h1>Moj LOM</h1>
-    {% if tag %}
-        <h2>Posty oznaczone tagiem "{{ tag.name }}"</h2>
-    {% endif %}
+    <h2>Lista postow w kategorii "{{ category }}"</h2>
     {% for post in posts %}
         {% include 'post/short_post.html' %}
     {% endfor %}

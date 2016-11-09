@@ -40,9 +40,13 @@ $(function() {
     $('input[name="publish"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
+        timePicker: true,
+        timePicker24Hour: true,
+        showISOWeekNumbers: true,
+        showDropdowns: true,
         minDate: Date(),
         locale: {
-            format: 'YYYY-DD-MM'
+            format: 'YYYY-MM-DD h:mm'
         }
 
     });

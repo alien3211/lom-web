@@ -1,0 +1,6 @@
+{% for cat in categories %}
+    <a href="{{cat.get_absolute_url }}">{{ cat.name }}</a>
+    {% if not forloop.last %}
+        >
+    {% endif %}
+{% endfor %}

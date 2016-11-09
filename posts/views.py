@@ -5,8 +5,9 @@ from django.db.models import Count
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+
 from .models import Post
-from categories.models import Category
+from .categoryModels import Category
 
 from haystack.query import SearchQuerySet
 
@@ -148,4 +149,27 @@ def post_search(request):
         context = {
             'form': form,
         }
-    return  render(request, 'post/search.html', context)
+    return render(request, 'post/search.html', context)
+
+
+def post_category(request, id=None, path=None):
+    category = get_object_or_404(Category, id=id)
+
+    object_list = category.post_set.filter(status="published")
+
+    paginator = Paginator(object_list, settings.POST_PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    context = {
+        'category': category,
+        'posts': posts,
+        'page': posts
+    }
+
+    return render(request, 'post/category.html', context)

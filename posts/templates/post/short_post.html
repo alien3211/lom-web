@@ -1,0 +1,14 @@
+{% load post_tags %}
+{% load l10n %}
+
+
+<h2>
+    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+</h2>
+<p class="tags">
+    Tagi: {% tags_to_html_link post.tags %}
+</p>
+<p class="date">
+    Opublikowany {{ post.publish }} przez {{ post.author }}
+</p>
+{{ post.get_markdown|truncatewords_html:5 }}
