@@ -1,0 +1,4 @@
+{{ object.title }}
+{{ object.tags.all|join:", " }}
+{{ object.content }}
+{{ object.ancestors_category_lists|join:", " }}

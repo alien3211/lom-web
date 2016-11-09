@@ -1,0 +1,99 @@
+{% load staticfiles %}
+{% load post_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% block head_extra %}{% endblock head_extra %}
+    </head>
+    <body>
+{#    {% include "message_display.html" %}#}
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'posts:list' %}">Home</a></li>
+                <li><a href="{% url 'posts:create' %}">Posts</a></li>
+                {% if not request.user.is_authenticated %}
+                    <li class="pull-right"><a href="{% url 'account_signup' %}">Register</a></li>
+                    <li class="pull-right"><a href="{% url 'account_login' %}">Login</a></li>
+                {% else %}
+                     <li class="pull-right"><a href="{% url 'account_logout' %}">Logout</a></li>
+                {% endif %}
+            </ol>
+            <h3>Najnowsze posty</h3>
+            {% show_latest_posts 3 %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <script
+			  src="http://code.jquery.com/jquery-1.12.4.min.js"
+			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			  crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+
+        {% block script_extra %}
+        {% endblock script_extra %}
+
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+                $(".content-markdown").each(function () {
+                    var content = $(this).text().trim()
+                    var markedContent = marked(content)
+                    $(this).html(markedContent)
+                })
+
+            //preview-title
+            var titleInput = $("#id_title");
+
+
+            function setTitle(value) {
+                $("#preview-title").text(value)
+            }
+
+            setTitle(titleInput.val())
+
+            titleInput.keyup(function () {
+                var newTitle = titleInput.val()
+                setTitle(newTitle)
+            })
+            //preview-content
+            var contentInput = $("#id_content");
+
+            function setContent(value) {
+                var markedContent = marked(value)
+                $("#preview-content").html(markedContent)
+                $("#preview-content img").each(function () {
+                    $(this).addClass("img-responsive")
+                })
+            }
+            setContent(contentInput.val())
+
+            contentInput.keyup(function () {
+                var newContent = $(this).val()
+                setContent(newContent)
+            })
+            $(".commit-reply-btn").click(function (event) {
+                event.preventDefault();
+                $(this).parent().next(".comment-replay").fadeToggle();
+            })
+
+        }
+        )
+
+        </script>
+    </body>
+</html>

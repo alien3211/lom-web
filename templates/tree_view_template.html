@@ -1,0 +1,11 @@
+<li> <a href="{% url 'posts:category_list' %}{{ category.get_absolute_url }}">{{ category.name }}</a>
+    {%if category.children.count > 0 %}
+        <ul>
+         {%for ch in category.children.all %}
+              {%with category=ch template_name="tree_view_template.html" %}
+                   {%include template_name%}
+              {%endwith%}
+         {%endfor%}
+         </ul>
+    {%endif%}
+</li>
