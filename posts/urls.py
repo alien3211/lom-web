@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'search/$', views.post_search, name='search'),
     url(r'^category/(?P<id>\d+)/(?P<path>.*)$', views.post_category, name='category'),
     url(r'^tag/(?P<tag_slug>[\w-]+)/$', views.post_list, name='list_by_tag'),
-    url(r'^post/create/$', views.post_create, name='create'),
+    url(r'^create/$', views.post_create, name='create'),
     url(r'^post/(?P<slug>[\w-]+)/$', views.post_detail, name='detail'),
     url(r'^post/(?P<slug>[\w-]+)/edit/$', views.post_update, name='edit'),
 ]

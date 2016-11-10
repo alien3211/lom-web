@@ -52,6 +52,7 @@ class Production(Configuration):
 
     INSTALLED_APPS = [
         'posts',
+        'comments',
         #####################
         'bootstrap3',
         'crispy_forms',

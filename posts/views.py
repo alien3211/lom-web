@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.http import Http404
@@ -7,6 +8,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
+from comments.forms import CommentForm
+from comments.models import Comment
 from .models import Post
 from .categoryModels import Category
 
@@ -78,10 +81,46 @@ def post_detail(request, slug):
                                             .exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
                                  .order_by('-same_tags', '-publish')[:4]
+
+    initial_data = {
+        "content_type": post.get_content_type,
+        "object_id": post.id
+    }
+
+    comment_form = CommentForm(request.POST or None, initial=initial_data)
+    if comment_form.is_valid() and request.user.is_authenticated():
+        c_type = comment_form.cleaned_data.get('content_type')
+        content_type = ContentType.objects.get(model=c_type)
+        obj_id = comment_form.cleaned_data.get('object_id')
+        content_data = comment_form.cleaned_data.get('content')
+        parent_obj = None
+        try:
+            parent_id = int(request.POST.get("parent_id"))
+        except:
+            parent_id = None
+
+        if parent_id:
+            parent_qs = Comment.objects.filter(id=parent_id)
+            if parent_qs.exists() and parent_qs.count() == 1:
+                parent_obj = parent_qs.first()
+
+
+        new_comment, created = Comment.objects.get_or_create(
+                                                user=request.user,
+                                                content_type=content_type,
+                                                object_id=obj_id,
+                                                content=content_data,
+                                                parent=parent_obj,
+                                            )
+        return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+
+    comments = post.comments
     context = {
         'post': post,
         'categories': cat,
         'similar_posts': similar_posts,
+        "comments": comments,
+        "comment_form": comment_form,
     }
 
     return render(request, 'post/detail.html', context)
@@ -139,7 +178,7 @@ def post_update(request, slug=None):
 # to update the search data you need run './manage.py update_index' commend
 def post_search(request):
     form = SearchForm()
-    if 'query' in request.GET:
+    if 'query' in request.GET and request.GET.get('query') != "":
         form = SearchForm(request.GET)
         if form.is_valid():
             cd = form.cleaned_data

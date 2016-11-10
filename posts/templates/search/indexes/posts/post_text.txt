@@ -1,4 +1,5 @@
 {{ object.title }}
 {{ object.tags.all|join:", " }}
 {{ object.content }}
+{{ object.author }}
 {{ object.category.path_name_category_list|join:", " }}

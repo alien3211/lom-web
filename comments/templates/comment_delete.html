@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1>Confirm Delete</h1>
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <p>Are you sure you want delete: "{{ comment.content|truncatewords:5 }}"?</p>
+            <input type="submit" value="Confirm" class="btn btn-warning">
+            <a href="{{ comment.get_absolute_url }}"class="btn btn-default">Cancel</a>
+        </form>
+
+
+        <hr />
+    </div>
+{% endblock content %}
