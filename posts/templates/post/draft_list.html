@@ -2,10 +2,11 @@
 {% load post_tags %}
 {% block title %}Moj blog {% endblock %}
 {% block content %}
+<div class="col-md-6">
     <h1>Wersje robocze</h1>
     {% for post in posts %}
         <h2>
-            <span style="color: red">Draft </span>
+            <span style="color: red">Draft: </span>
             <a href="{{ post.get_absolute_url }}edit">{{ post.title }}</a>
         </h2>
         <p class="tags">
@@ -14,4 +15,5 @@
         {{ post.get_markdown|truncatewords_html:5 }}
     {% endfor %}
     {% include "pagination.html" %}
+</div>
 {% endblock content %}

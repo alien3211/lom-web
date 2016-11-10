@@ -3,6 +3,7 @@
 {% load post_tags %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
+<div class="col-md-8">
     <h1>{{ post.title }}</h1>
     <p class="tags">
         Tagi: {% tags_to_html_link post.tags %}
@@ -15,14 +16,41 @@
     </p>
     {{ post.get_markdown }}
     <hr/>
-    <h2>Podobne posty</h2>
-    <div class="similar-posts">
-        {% for post in similar_posts %}
-            <p>
-                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-            </p>
-        {% empty %}
-            Nie ma podobnych postow.
-        {% endfor %}
-    </div>
+</div>
 {% endblock %}
+{% block display-left-column %}
+    <div class="col-md-1">
+    </div>
+{% endblock display-left-column %}
+{% block display-right-column %}
+    <div class="col-md-3">
+    <div class="panel-posts">
+                        <div class="sidebar-module sidebar-module-inset">
+                            <div class="panel-posts-title">
+                                <h3>Najnowsze posty</h3>
+                            </div>
+                            <div class="panel-posts-body">
+                                {% show_latest_posts 5 %}
+                            </div>
+                        </div>
+                    </div>
+        <div class="recent-posts">
+            <div class="sidebar-module sidebar-module-inset">
+                <div class="panel-posts-title">
+                    <h3>Podobne posty</h3>
+                </div>
+                <div class="panel-posts-body">
+                    <ol class="list-unstyled">
+                        {% for post in similar_posts %}
+                            <li>
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                            </li>
+                        {% empty %}
+                            Nie ma podobnych postow.
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock display-right-column %}
