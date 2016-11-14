@@ -1,7 +1,9 @@
+celery-haystack==0.10
 decorator==4.0.10
 defusedxml==0.4.1
 Django==1.10.3
 django-allauth==0.28.0
+django-appconf==1.0.2
 django-bootstrap3==7.1.0
 django-categories==1.4.3
 django-configuration==0.0.3

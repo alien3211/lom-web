@@ -73,7 +73,6 @@ def post_draft_list(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, status='published')
-    cat = Category.objects.all().filter(level=0)
 
     # list similar posts
     post_tags_ids = post.tags.values_list('id', flat=True)
@@ -117,7 +116,6 @@ def post_detail(request, slug):
     comments = post.comments
     context = {
         'post': post,
-        'categories': cat,
         'similar_posts': similar_posts,
         "comments": comments,
         "comment_form": comment_form,
@@ -182,10 +180,13 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             cd = form.cleaned_data
+            query = cd['query']
+            search_option = request.GET.get('search_radio')
             results = SearchQuerySet().models(Post)\
-                      .filter(content=cd['query']).load_all()
+                                          .filter(**{search_option: query}).load_all()
+
             # count whole posts
-            total_results = results.count()
+            total_results = results.count
             context = {
                 'form': form,
                 'cd': cd,

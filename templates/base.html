@@ -7,10 +7,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}{% endblock %}</title>
+
+
+        <link rel="stylesheet" href="{% static '/css/mtree.css'%}">
         <link rel="stylesheet" href="{% static 'css/base.css' %}" />
         <link rel="stylesheet" href="{% static 'css/theme.css' %}" />
         <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/jquery.treemenu.css' %}" />
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -19,6 +24,7 @@
               integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 {#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" />#}
+
         {% block head_extra %}{% endblock head_extra %}
     </head>
     <body>
@@ -39,13 +45,14 @@
                 <li>
                     <form action="{% url 'posts:search' %}" class="navbar-form navbar-right">
                       <div class="input-group-btn form-group" >
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search_type_button"></span><span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><div class="radio"><input type="radio" name="search_radio" value="title" ><label for="title"> Title</label></div></li>
-                            <li><div class="radio"><input type="radio" name="search_radio" value="author" ><label for="author"> Author</label></div></li>
-                            <li><div class="radio"><input type="radio" name="search_radio" value="category" ><label for="category"> Category</label></div></li>
-                            <li><div class="radio"><input type="radio" name="search_radio" value="body" ><label for="body"> Content</label></div></li>
-                            <li><div class="radio"><input type="radio" name="search_radio" value="tag" ><label for="tag"> Tag</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="all" checked> All</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="title" >Title</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="author" > Author</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="category" > Category</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="body" > Content</label></div></li>
+                            <li><div class="radio_search"><label><input type="radio" name="search_radio" value="tags" > Tag</label></div></li>
                           <li role="separator" class="divider"></li>
                         </ul>
                         <input type="text" class="form-control" name="query" aria-label="..." placeholder="Search...">
@@ -98,8 +105,9 @@
         <div class="container">
         <div class="row">
             {% block display-left-column %}
-            <div class="col-md-3">
-            </div>
+                <div class="col-md-3">
+                    {% list_category_toggle_menu %}
+                </div>
             {% endblock display-left-column %}
             {% block content %}
                 <div class="col-md-6">
@@ -137,7 +145,18 @@
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="{% static '/js/bootstrap.min.js' %}"></script>
         <script src="{% static '/js/base.js' %}"></script>
-            {% block script_extra %}
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="{% static 'js/jquery.treemenu.js' %}"></script>
+        <script>
+        $(function(){
+                $(".tree").treemenu({delay:300}).openActive();
+            });
+        </script>
+        <!-- mtree script to left category menu-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/velocity/0.2.1/jquery.velocity.min.js'></script>
+        <script src="{% static '/js/mtree.js'%}"></script>
+        {% block script_extra %}
 
         {% endblock script_extra %}
     </body>

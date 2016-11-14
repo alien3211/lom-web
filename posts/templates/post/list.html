@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load post_tags %}
 {% block title %}Moj blog {% endblock %}
 {% block content %}
 <div class="col-md-6">
@@ -11,4 +13,5 @@
     {% endfor %}
     {% include "pagination.html" %}
 </div>
+
 {% endblock content %}

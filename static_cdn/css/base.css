@@ -53,3 +53,42 @@
     align-items: center;
     white-space: nowrap;
 }
+
+/* css mtree */
+.mtree-skin-selector {
+  text-align: center;
+  background: #EEE;
+  padding: 10px 0 15px;
+}
+
+.mtree-skin-selector li {
+  display: inline-block;
+  float: none;
+}
+
+.mtree-skin-selector button {
+  padding: 5px 10px;
+  margin-bottom: 1px;
+  background: #BBB;
+}
+
+.mtree-skin-selector button:hover { background: #999; }
+
+.mtree-skin-selector button.active {
+  background: #999;
+  font-weight: bold;
+}
+
+.mtree-skin-selector button.csl.active { background: #FFC000; }
+
+.mtree  ul, ol, dl {
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    list-style-position: outside;
+    font-family: inherit;
+}
+.mtree  ul, ol, li {
+    margin: 0;
+    padding: 0;
+    direction: ltr;
+}

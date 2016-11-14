@@ -39,6 +39,16 @@ $(document).ready(function () {
                 event.preventDefault();
                 $(this).parent().next(".comment-replay").fadeToggle();
             })
+    }
 
-        }
 )
+$('.radio_search').each(function (e) {
+        $('.radio_search').each(function (e) {
+        $(this).children('label').click(function (e) {
+            $('#search_type_button').text($(this).text() + ' ');
+        })
+    })
+})
+
+$('#search_type_button').text($('input[name=search_radio]:checked', '.radio_search').parent().text() + ' ');
+
