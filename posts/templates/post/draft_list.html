@@ -3,10 +3,10 @@
 {% block title %}Moj blog {% endblock %}
 {% block content %}
 <div class="col-md-6">
-    <h1>Wersje robocze</h1>
+    <h1><span style="color: red">Draft and not yet publish </span></h1>
     {% for post in posts %}
         <h2>
-            <span style="color: red">Draft: </span>
+
             <a href="{{ post.get_absolute_url }}edit">{{ post.title }}</a>
         </h2>
         <p class="tags">

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from django.db.models import F
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -22,6 +23,17 @@ from taggit.models import Tag
 # Create your views here.
 def post_list(request, tag_slug=None):
     object_list = Post.objects.published()
+    if request.GET.get('last_update') != None:
+        if request.user.is_active and request.user.is_authenticated():
+            object_list = Post.objects.published()\
+                .exclude(updated__lte=F('timestamp')).filter(updated__gte=request.user.last_login)
+            # user = request.user
+            # timezone = user.last_login.tzinfo
+            # user.last_login = datetime.now(tz=timezone)
+            # user.save()
+    if request.GET.get('news') != None:
+        if request.user.is_active and request.user.is_authenticated():
+            object_list = Post.objects.published().filter(publish__gte=request.user.last_login)
 
     tag = None
     if tag_slug:

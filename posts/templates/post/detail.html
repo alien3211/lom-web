@@ -14,6 +14,7 @@
     </p>
     <p class="date">
         Opublikowany {{ post.publish }} przez <a href="#" onclick="document.getElementById('author-form').submit();"> {{ post.author }}</a>
+        Uaktualniony {{ post.timestamp }}
     </p>
     {{ post.get_markdown }}
     <hr/>

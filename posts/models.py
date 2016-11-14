@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.text import slugify, mark_safe
 from django.db.models.signals import pre_save
@@ -18,10 +19,10 @@ from .categoryModels import Category
 
 class PostPublishedManager(models.Manager):
     def published(self):
-        return super(PostPublishedManager, self).get_queryset().filter(status='published')
+        return super(PostPublishedManager, self).get_queryset().filter(status='published').filter(publish__lte=timezone.now())
 
     def draft(self):
-        return super(PostPublishedManager, self).get_queryset().filter(status='draft')
+        return super(PostPublishedManager, self).get_queryset().filter(Q(status='draft') | Q(publish__gte=timezone.now()))
 
 
 
@@ -70,7 +71,6 @@ class Post(models.Model):
         instance = self
         content_type = ContentType.objects.get_for_model(instance.__class__)
         return content_type
-
 
 
 def create_slug(instance, new_slug=None):
