@@ -1,4 +1,4 @@
-<li> <span><a href="{{ category.get_absolute_url }}"> {{ category.name }}</a></span>
+<li> <span class="hasSub"><a href="{{ category.get_absolute_url }}" id="{{ category.id }}"> {{ category.name }}</a></span>
     {%if category.children.count > 0 %}
         <ul>
          {%for ch in category.children.all %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load post_tags %}
+{% block title %}Moj blog {% endblock %}
+{% block head_extra %}
+    <style>
+
+
+  </style>
+{% endblock head_extra %}
+            {% block display-left-column %}
+                <div class="col-md-3">
+
+                </div>
+            {% endblock display-left-column %}
+{% block content %}
+<div class="col-md-6">
+            {% list_category_toggle_menu %}
+
+</div>
+
+{% endblock content %}
+{% block script_extra %}
+
+{% endblock script_extra %}

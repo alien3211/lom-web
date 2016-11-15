@@ -1,3 +1,7 @@
+.navbar {
+    background-color: #222;
+    border-color: #080808;
+}
 .wmd-panel{
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -91,4 +95,9 @@
     margin: 0;
     padding: 0;
     direction: ltr;
+}
+
+/* to category search input */
+.fordtreeview > li:first-child{
+  display:block !important;
 }

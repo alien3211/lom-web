@@ -104,7 +104,9 @@ ul.mtree.skinny ul a {
 }
 
 ul.mtree.transit {
-  background: #111;
+  background: #222;
+  border-color:#080808;
+
 }
 ul.mtree.transit ul {
   margin-left: 0;

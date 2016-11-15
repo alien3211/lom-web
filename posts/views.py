@@ -233,3 +233,20 @@ def post_category(request, id=None, path=None):
     }
 
     return render(request, 'post/category.html', context)
+
+
+def list_category(request):
+    category = Category.objects.all()
+    context = {
+        'category': category,
+    }
+
+    return render(request, 'category/list_category.html', context)
+
+
+def create_category(request):
+    context = {
+
+    }
+
+    return render(request, 'category/create_category.html', context)

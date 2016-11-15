@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load post_tags %}
+{% block title %}Moj blog {% endblock %}
+{% block head_extra %}
+    <style>
+    div.panel:first-child {
+    margin-top:20px;
+}
+
+div.treeview {
+    min-width: 100px;
+    min-height: 100px;
+
+    max-height: 256px;
+    overflow:auto;
+
+	padding: 4px;
+
+	margin-bottom: 20px;
+
+	color: #369;
+
+	border: solid 1px;
+	border-radius: 4px;
+}
+div.treeview ul:first-child:before {
+    display: none;
+}
+.treeview, .treeview ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+
+	color: #369;
+}
+.treeview ul {
+    margin-left:1em;
+    position:relative
+}
+.treeview ul ul {
+    margin-left:.5em
+}
+.treeview ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:1px solid;
+
+    /* creates a more theme-ready standard for the bootstrap themes */
+    bottom:15px;
+}
+.treeview li {
+    margin:0;
+    padding:0 1em;
+    line-height:2em;
+    font-weight:700;
+    position:relative
+}
+.treeview ul li:before {
+    content:"";
+    display:block;
+    width:10px;
+    height:0;
+    border-top:1px solid;
+    margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0
+}
+.tree-indicator {
+    margin-right:5px;
+
+    cursor:pointer;
+}
+.treeview li a {
+    text-decoration: none;
+    color:inherit;
+
+    cursor:pointer;
+}
+.treeview li button, .treeview li button:active, .treeview li button:focus {
+    text-decoration: none;
+    color:inherit;
+    border:none;
+    background:transparent;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    outline: 0;
+}
+    </style>
+{% endblock head_extra %}
+
+{% block content %}
+<div class="col-md-6">
+    <div class="treeview">
+        {% list_category_toggle_menu %}
+    </div>
+</div>
+
+<script>
+    function tree_add_leaf_example_click(leaf, node, pnode, tree){
+        tree.addLeaf(node, "Leaf item");
+    }
+</script>
+{% endblock content %}
+{% block script_extra %}
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+    /**
+ *  BootTree Treeview plugin for Bootstrap.
+ *
+ *  Based on BootSnipp TreeView Example by Sean Wessell
+ *  URL:	http://bootsnipp.com/snippets/featured/bootstrap-30-treeview
+ *
+ *	Revised code by Leo "LeoV117" Myers
+ *
+ */
+$.fn.extend({
+	treeview:	function() {
+		return this.each(function() {
+			// Initialize the top levels;
+			var tree = $(this);
+
+			tree.addClass('treeview-tree');
+			tree.find('li').each(function() {
+				var stick = $(this);
+			});
+			tree.find('li').has("ul").each(function () {
+				var branch = $(this); //li with children ul
+
+				branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
+				branch.addClass('tree-branch');
+				branch.on('click', function (e) {
+					if (this == e.target) {
+						var icon = $(this).children('i:first');
+
+						icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
+						$(this).children().children().toggle();
+					}
+				})
+				branch.children().children().toggle();
+
+				/**
+				 *	The following snippet of code enables the treeview to
+				 *	function when a button, indicator or anchor is clicked.
+				 *
+				 *	It also prevents the default function of an anchor and
+				 *	a button from firing.
+				 */
+				branch.children('.tree-indicator, button, a').click(function(e) {
+					branch.click();
+
+					e.preventDefault();
+				});
+			});
+		});
+	}
+});
+
+/**
+ *	The following snippet of code automatically converst
+ *	any '.treeview' DOM elements into a treeview component.
+ */
+$(window).on('load', function () {
+	$('.treeview').each(function () {
+		var tree = $(this);
+		tree.treeview();
+	})
+})
+    </script>
+{% endblock script_extra %}

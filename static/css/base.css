@@ -96,3 +96,12 @@
     padding: 0;
     direction: ltr;
 }
+
+/* to category search input */
+.fordtreeview > li:first-child{
+  display:block !important;
+}
+
+.fordtreeview-found {
+    background: #aa0008 !important;
+}
