@@ -1,14 +1,15 @@
+{% load post_tags %}
 <div class="pagination">
     <span class="step-links">
         <ul class="pager">
         {% if page.has_previous %}
-            <li><a href="?page={{ page.previous_page_number }}">Poprzednia</a></li>
+            <li><a href="?{% url_replace request 'page' page.previous_page_number %}">Poprzednia</a></li>
         {% endif %}
         <span class="current">
             {{ page.number }} z {{ page.paginator.num_pages }}
         </span>
         {% if page.has_next %}
-            <li><a href="?page={{ page.next_page_number }}">Nastepna</a></li>
+            <li><a href="?{% url_replace request 'page' page.next_page_number %}">Nastepna</a></li>
         {% endif %}
         </ul>
     </span>

@@ -1,6 +1,5 @@
 import re
 import math
-import datetime
 
 from django.utils.html import strip_tags
 
@@ -15,3 +14,11 @@ def get_read_time(html_string):
     count = count_words(html_string)
     read_time_min = math.ceil(count/200.0)
     return int(read_time_min)
+
+def deep_search_category(category):
+    if category.children.count() == 0:
+        yield category
+    else:
+        yield category
+        for c in category.children.all():
+            yield from deep_search_category(c)

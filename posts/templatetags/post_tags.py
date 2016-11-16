@@ -12,6 +12,16 @@ def total_posts():
     return Post.objects.published().count()
 
 
+@register.simple_tag
+def url_replace(request, field, value):
+
+    dict_ = request.GET.copy()
+
+    dict_[field] = value
+
+    return dict_.urlencode()
+
+
 @register.inclusion_tag('post/latest_posts.html')
 def show_latest_posts(count=5):
     latest_posts = Post.objects.published().order_by('-publish')[:count]
@@ -32,3 +42,4 @@ def tags_to_html_link(post_tags):
 def list_category_toggle_menu():
     categories = Category.objects.all().filter(level=0)
     return {'categories': categories}
+

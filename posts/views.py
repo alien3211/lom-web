@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
@@ -11,6 +13,7 @@ from django.urls import reverse
 
 from comments.forms import CommentForm
 from comments.models import Comment
+from posts.utils import deep_search_category
 from .models import Post
 from .categoryModels import Category
 
@@ -215,7 +218,13 @@ def post_search(request):
 def post_category(request, id=None, path=None):
     category = get_object_or_404(Category, id=id)
 
-    object_list = category.post_set.filter(status="published")
+    object_list = category.post_set.filter(status='published')
+
+    deep_categories = deep_search_category(category)
+
+    if request.GET.get('deep_search'):
+        object_list = list(chain(*[x.post_set.filter(status='published') for x in deep_categories]))
+        print(object_list)
 
     paginator = Paginator(object_list, settings.POST_PER_PAGE)
     page = request.GET.get('page')

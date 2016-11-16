@@ -5,6 +5,9 @@ $(document).ready(function () {
 
     function expend_collapse_mtree_search_category() {
         if ($(".menufilter").val() == '') {
+            $(".fordtreeview span").each(function(e){
+                $(this).removeClass('fordtreeview-found');
+            });
             $('.mtree li').each(function() {
               $(this).removeClass('mtree-open').addClass('mtree-closed');
             });
@@ -48,6 +51,16 @@ $(document).ready(function () {
   }
 });
 
+    $(".fordtreeview span").not(":containsi('" + searchSplit + "')").each(function(e){
+        $(this).removeClass('fordtreeview-found');
+    });
+
+    if (searchSplit != '') {
+        $(".fordtreeview span:containsi('" + searchSplit + "')").each(function(e){
+            $(this).addClass('fordtreeview-found');
+        });
+    }
+
     $(".fordtreeview li").not(":containsi('" + searchSplit + "')").each(function(e)   {
       $(this).hide()
     });
@@ -55,5 +68,7 @@ $(document).ready(function () {
     $(".fordtreeview li:containsi('" + searchSplit + "')").each(function(e) {
       $(this).show();
     });
+
+
   });
 });

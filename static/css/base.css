@@ -1,3 +1,68 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ##################### */
+h1 > a {
+    color: black;
+}
+.post-title {
+    border-bottom: 1px solid #dddfe2;
+    padding: 0 0 0.2em 0;
+}
+
+.post-category {
+    padding: 0.5em 0 0.5em 0;
+
+}
+
+.post-tags,
+.post-content,
+.post-meta
+{
+	margin:0;
+	border-bottom:1px solid #dddfe2;
+    padding: 0.5em 0 0.5em 0;
+}
+
+.post-content{
+    width: 100%; font-size: 11pt;
+    margin: 1.5em 0 0;
+}
+.post-tags >a {
+	border-radius: 25px;
+	font-weight:400;
+	background:#83b9dc;
+	color: #fff;
+	padding:0.2em .2em;
+	display:inline-block;
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.post-content a.more-link {
+	color: #fff;
+}
+
+.more-link-old{
+	background:#c3c5c7;
+	padding:0.2em 1.0em;
+	margin:0.5em 0.5em 0.5em 0;
+	display:inline-block;
+}
+.more-link {
+	background:#4498cf;
+	color: white;
+	padding:0.2em 1.0em;
+	margin:0.5em 0.5em 0.5em 0;
+	display:inline-block;
+}
+
+.post-updated {
+    color: darkred;
+}
+/* ##################### */
+
 .navbar {
     background-color: #222;
     border-color: #080808;
@@ -103,5 +168,5 @@
 }
 
 .fordtreeview-found {
-    background: #aa0008 !important;
+    background: #616063 !important;
 }
