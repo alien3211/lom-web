@@ -176,7 +176,7 @@ def post_update(request, slug=None):
         instance = form.save(commit=False)
         instance.save()
         form.save_m2m()
-        messages.success(request, "Saved")
+        messages.success(request, "Updated")
         if instance.status == "draft":
             return HttpResponseRedirect(reverse('posts:draft_list'))
         else:
