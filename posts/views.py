@@ -171,7 +171,7 @@ def post_update(request, slug=None):
     if instance.author != request.user:
         raise Http404
 
-    form = PostForm(request.POST or None, instance=instance)
+    form = PostForm(request.POST or None, instance=instance, publish_disabled=True)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()

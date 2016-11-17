@@ -5,18 +5,27 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <div class="col-md-8">
-    <h1>{{ post.title }}</h1>
+    <header class="post-title">
+        <h1 style="display: inline-block">{{ post.title }}</h1>
+        <a href="{{ post.get_absolute_url }}edit" class="more-link" style="float: right; margin: 2em 0 0 0">Edit »</a>
+    </header>
     <p class="tags">
         Tagi: {% tags_to_html_link post.tags %}
     </p>
     <p class="category">
         Category: {% categories_to_html_link post.category %}
     </p>
-    <p class="date">
-        Opublikowany {{ post.publish }} przez <a href="#" onclick="document.getElementById('author-form').submit();"> {{ post.author }}</a>
-    </p>
-    {{ post.get_markdown }}
-    <hr/>
+    <div class="post-meta">
+        Opublikowany {{ post.publish }} by {{ post.author }}
+        {% if post.updated >= post.timestamp %}
+            <small><span class="post-updated">Aktualizacja: {{ post.updated }}</span></small>
+        {% endif %}
+    </div>
+    <article>
+        <div class="post-content">
+            {{ post.get_markdown }}
+        </div>
+    </article>
 <!-- form to above author link to search all posts by author -->
     <form action="{% url 'posts:search' %}" id="author-form">
         <input type="hidden" name="query" value="{{ post.author }}">

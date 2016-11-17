@@ -15,6 +15,13 @@ class PostForm(forms.ModelForm):
     content = forms.CharField(widget=PagedownWidget(show_preview=False))
     publish = forms.DateTimeField(widget=forms.widgets.Input(attrs=DATEPICKER))
 
+    def __init__(self, *args, publish_disabled=False, **kwargs ):
+        super(PostForm, self).__init__(*args, **kwargs)
+
+        if publish_disabled:
+            self.fields['publish'].widget.attrs['readonly'] = True
+
+
     class Meta:
         model = Post
         fields = [

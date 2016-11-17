@@ -60,6 +60,7 @@ h1 > a {
 
 .post-updated {
     color: darkred;
+    float: right;
 }
 /* ##################### */
 

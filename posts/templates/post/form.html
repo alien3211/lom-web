@@ -42,19 +42,21 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <script type="text/javascript">
 $(function() {
-    $('input[name="publish"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        timePicker: true,
-        timePicker24Hour: true,
-        showISOWeekNumbers: true,
-        showDropdowns: true,
-        minDate: moment(),
-        locale: {
-            format: 'YYYY-MM-DD HH:mm'
-        }
+    if (! $('input[name="publish"]').is('[readOnly]') ){
+        $('input[name="publish"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            showISOWeekNumbers: true,
+            showDropdowns: true,
+            minDate: moment(),
+            locale: {
+                format: 'YYYY-MM-DD HH:mm'
+            }
 
-    });
+        });
+    }
 });
 </script>
 {% endblock script_extra %}
