@@ -43,8 +43,7 @@ SECRET_KEY = get_secret_key(BASE_DIR)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['172.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'http://127.0.0.1', 'http://localhost', 'localhost', '/http://94.177.253.7', '94.177.253.7']
 
 # Application definition
 
@@ -118,17 +117,18 @@ AUTHENTICATION_BACKENDS = (
 
 
 WSGI_APPLICATION = 'lom.wsgi.application'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+      	    'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf'),
+        },
+    }
+}
 
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
