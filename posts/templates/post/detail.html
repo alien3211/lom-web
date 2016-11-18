@@ -23,7 +23,7 @@
     </div>
     <article>
         <div class="post-content">
-            {{ post.get_markdown }}
+            {{ post.content| markdown2 | safe }}
         </div>
     </article>
 <!-- form to above author link to search all posts by author -->

@@ -15,7 +15,7 @@
 </header>
 <article>
     <div class="post-content">
-        {{ post.get_markdown|truncatewords_html:30 }}
+        {{ post.content| markdown2 | safe |truncatewords_html:30 }}
         <a href="{{ post.get_absolute_url }}" class="more-link">View details »</a>
     </div>
     <div class="post-tags">
