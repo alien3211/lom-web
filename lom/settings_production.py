@@ -208,3 +208,4 @@ HAYSTACK_CONNECTIONS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # send email to console output
+TAGGIT_CASE_INSENSITIVE = True

@@ -2,6 +2,7 @@ import MySQLdb
 
 from posts.categoryModels import Category
 from posts.models import Post
+from taggit.models import Tag
 
 def addCategory(parent_id, name):
     print("ADD category '{}' to {}".format(name, parent_id))
@@ -17,7 +18,9 @@ def addPost(title, content, tags, id_category):
     p.author_id = 1
     p.status = 'published'
     p.save()
-    [p.tags.add(x) for x in tags.split(',')]
+    for x in tags.split(','):
+        new_tag_obj, created = Tag.objects.get_or_create(name=x)
+        p.tags.add(new_tag_obj.name)
 
 def getData(query, *arg):
     data = []
@@ -68,8 +71,9 @@ for cat in categories[1:]:
 
 for post in posts:
     title = post['name']
-    content = post['description'].replace('<tt>', '```py').replace('</tt>', '```')
+    content = post['description'].replace('<tt>', '\n```py\n').replace('</tt>', '\n```\n')
     content = content.replace('<span color="gray"><small><i>', '').replace('</i></small></span>', '')
+    content = content.replace('<span color="grey"><small><i>', '').replace('</i></small></span>', '')
     tags = post['key_list']
     id_category = get_new_parent_id(post['id_type'], map_cat)
     printed = """

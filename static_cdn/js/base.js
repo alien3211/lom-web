@@ -52,3 +52,6 @@ $('.radio_search').each(function (e) {
 
 $('#search_type_button').text($('input[name=search_radio]:checked', '.radio_search').parent().text() + ' ');
 
+$(".alert").delay(2000).slideUp(200, function() {
+    $(this).alert('close');
+});
