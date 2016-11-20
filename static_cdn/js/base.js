@@ -55,3 +55,27 @@ $('#search_type_button').text($('input[name=search_radio]:checked', '.radio_sear
 $(".alert").delay(2000).slideUp(200, function() {
     $(this).alert('close');
 });
+
+
+// deep search button click on/off
+$('.no-checkedselector').on('change', 'input[type="radio"].toggle', function () {
+    if (this.checked) {
+        $('input[name="' + this.name + '"].checked').removeClass('checked');
+        $(this).addClass('checked');
+        $('.toggle-container').addClass('force-update').removeClass('force-update');
+    }
+});
+$('.no-checkedselector input[type="radio"].toggle:checked').addClass('checked');
+
+function deepSearchClickLink(element) {
+    console.log("DUPQA!!!!!!!!");
+    console.log(element);
+    $(element).attr('href', function() {
+        if ($('#toggle-on').is(':checked')) {
+            return this.href + '?deep_search=on';
+        } else {
+            return this.href;
+        }
+    });
+
+}

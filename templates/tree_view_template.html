@@ -1,6 +1,6 @@
 <li> <span class="hasSub">
-    <a href="{{ category.get_absolute_url }}?deep_search=on" class="fa fa-shield fa-flip-horizontal" style="font-size: 8px" aria-hidden="true"> </a>
-    <a href="{{ category.get_absolute_url }}" id="{{ category.id }}">{{ category.name }}</a>
+{#    <a href="{{ category.get_absolute_url }}?deep_search=on" class="fa fa-shield fa-flip-horizontal" style="font-size: 8px" aria-hidden="true"> </a>#}
+    <a onclick="deepSearchClickLink(this)" href="{{ category.get_absolute_url }}" id="{{ category.id }}">{{ category.name }}</a>
     </span>
     {%if category.children.count > 0 %}
         <ul>
