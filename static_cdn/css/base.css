@@ -6,9 +6,14 @@ body {
 h1 > a {
     color: black;
 }
+
+.page-title {
+    padding: 0.5em 0;
+}
+
 .post-title {
     border-bottom: 1px solid #dddfe2;
-    padding: 0 0 0.2em 0;
+    padding: 0 0 0.5em 0;
 }
 
 .post-category {
@@ -23,6 +28,12 @@ h1 > a {
 	margin:0;
 	border-bottom:1px solid #dddfe2;
     padding: 0.5em 0 0.5em 0;
+}
+
+.post-meta {
+    color: #808080;
+    font-style: italic;
+    padding: 0 0 0.5em 1em;
 }
 
 .post-content{
@@ -198,4 +209,24 @@ input[type="radio"].toggle + label {
     /*background-color:#404040;*/
     padding:3px 0px;
     color:#F7F7F7;
+}
+
+
+/*latest posts*/
+.latest-post {
+    padding: 0 0 0.8em 0;
+}
+.latest-post a{
+    font-style: italic;
+    font-size: 100%;
+}
+.latest-post p{
+    color: #808080;
+    font-style: italic;
+    font-size: 95%;
+    padding: 0 0 0 1em;
+}
+.latest-post div{
+    border-left: 1px solid #b9b9b9;
+    padding: 0.2em 0.5em;
 }

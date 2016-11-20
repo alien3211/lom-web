@@ -10,7 +10,7 @@
 {% endblock display-left-column %}
 {% block content %}
     <div class="col-sm-6">
-        <h1>Form</h1>
+        <h1 class="page-title">Create Post</h1>
         <hr />
         <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
@@ -19,7 +19,7 @@
         </form>
     </div>
     <div class="col-sm-6">
-        <h1>Preview</h1>
+        <h1 class="page-title">Preview</h1>
         <hr />
         <div class="content-preview">
             <h3 id="preview-title"></h3>

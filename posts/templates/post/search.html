@@ -3,8 +3,8 @@
 {% block content %}
 <div class="col-md-6">
     {% if "query" in request.GET %}
-        <h1>Posty zawierajace "{{ cd.query }}"</h1>
-        <h3>znaleziono {{ total_results }} wynik {{ total_results|pluralize:"i" }}</h3>
+        <h1 class="page-title">Posty zawierajace "{{ cd.query }}"</h1>
+        <h3>znaleziono {{ total_results }} wynik{{ total_results|pluralize:"i" }}</h3>
         {% for result in results %}
             {% with post=result.object %}
                 <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
@@ -13,7 +13,6 @@
         {% empty %}
             <p>Brak wynikow dla podanego zapytania</p>
         {% endfor %}
-        <p><a href="{% url 'posts:search' %}">Szykaj Ponownie</a></p>
     {% else %}
         <h1>Szukaj postow</h1>
         <form action="." method="get">

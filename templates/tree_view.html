@@ -1,4 +1,9 @@
 <ul class="fordtreeview mtree transit">
+    <li class=""><input type="text" class="form-control menufilter" placeholder="Search..."/></li>
+    {%for category in categories %}
+        {%include "tree_view_template.html" %}
+    {%endfor%}
+    <hr/>
     <div class="no-checkedselector">
         <div class="toggle-container">
             <input id="toggle-on" class="toggle toggle-left" name="toggle" type="radio" checked>
@@ -8,8 +13,4 @@
             <label class="deep-label">Deep Search</label>
         </div>
     </div>
-    <li class=""><input type="text" class="form-control menufilter" placeholder="Search..."/></li>
-    {%for category in categories %}
-        {%include "tree_view_template.html" %}
-    {%endfor%}
 </ul>

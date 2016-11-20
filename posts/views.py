@@ -19,7 +19,7 @@ from .categoryModels import Category
 
 from haystack.query import SearchQuerySet
 
-from .forms import PostForm, SearchForm
+from .forms import PostForm, SearchForm, CategoryForm
 from taggit.models import Tag
 
 
@@ -87,7 +87,10 @@ def post_draft_list(request):
 
 
 def post_detail(request, slug):
-    post = get_object_or_404(Post, slug=slug, status='published')
+    post = get_object_or_404(Post, slug=slug)
+    if post.status == 'draft':
+        if request.user != post.author:
+            raise Http404
 
     # list similar posts
     post_tags_ids = post.tags.values_list('id', flat=True)
@@ -254,8 +257,21 @@ def list_category(request):
 
 
 def create_category(request):
-    context = {
+    if not request.user.is_active:
+        raise Http404
+    if not request.user.is_authenticated():
+        raise Http404
 
+    form = CategoryForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request, "Saved category")
+        return HttpResponseRedirect(reverse('posts:list'))
+
+    context = {
+        "form": form,
     }
 
     return render(request, 'category/create_category.html', context)

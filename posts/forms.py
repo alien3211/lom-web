@@ -1,11 +1,21 @@
 from django import forms
 
+from posts.categoryModels import Category
 from .models import Post
 from pagedown.widgets import PagedownWidget
 
 
 class SearchForm(forms.Form):
     query = forms.CharField()
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = [
+            "parent",
+            "name",
+        ]
 
 
 class PostForm(forms.ModelForm):

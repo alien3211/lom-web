@@ -1,8 +1,10 @@
 <ol class="list-unstyled">
     {% for post in latest_posts %}
-        <li>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-            <div class="post-date-info">{{ post.publish|timesince }} by: {{ post.author }}</div>
+        <li class="latest-post">
+            <div>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                <p>{{ post.publish|timesince }} by: {{ post.author }}</p>
+            </div>
         </li>
     {% endfor %}
 </ol>
