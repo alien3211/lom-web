@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.core.mail import send_mail
+from haystack.management.commands import update_index
 
 from comments.forms import CommentForm
 from comments.models import Comment
@@ -162,6 +163,9 @@ def post_create(request):
         instance.save()
         form.save_m2m()
         messages.success(request, "Saved")
+        # update solr indexing
+        update_index.Command().handle()
+        print("AFTER UPDATE")
         if instance.status == "draft":
             return HttpResponseRedirect(reverse('posts:draft_list'))
         else:
