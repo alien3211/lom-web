@@ -10,6 +10,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.core.mail import send_mail
 
 from comments.forms import CommentForm
 from comments.models import Comment
@@ -129,6 +130,12 @@ def post_detail(request, slug):
                                                 content=content_data,
                                                 parent=parent_obj,
                                             )
+        try:
+            send_mail('[LOM] Add comment to {} by '.format(post.title, request.user),
+                      "Hi {},\nuser '{}' add below comment to you posts\nComment:\n{}".format(post.author, request.user, content_data), 
+                      'lomweb@lomweb.com', [post.author.email], fail_silently=False)
+        except Exception as e:
+            print("exception", str(e))   
         return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
     comments = post.comments

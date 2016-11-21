@@ -203,9 +203,17 @@ POST_PER_PAGE = 5
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/posts'
+        'URL': 'http://127.0.0.1:8983/solr/lom'
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # send email to console output
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # send email to console output
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'lomweb <lomweb@lomweb.com>'
+
 TAGGIT_CASE_INSENSITIVE = True
