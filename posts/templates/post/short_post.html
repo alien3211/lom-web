@@ -8,7 +8,7 @@
                 <h1 class="post-title"><a href="{{ post.get_absolute_url }}" rel="bookmark">{{ post.title }} </a></h1>
                 <div class="post-meta">
                     Opublikowany {{ post.publish|timesince }} by {{ post.author }}
-                    {% if post.updated >= post.timestamp %}
+                    {% if post.updated > post.timestamp %}
                         <small><span class="post-updated">Aktualizacja: {{ post.updated|date:'d N Y H:i' }}</span></small>
                     {% endif %}
                 </div>
