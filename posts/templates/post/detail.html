@@ -20,6 +20,9 @@
     <p class="category">
         Category: {% categories_to_html_link post.category %}
     </p>
+    <p class="category">
+        Czas czytania: ~{{ post.read_time }} min
+    </p>
     <div class="post-meta">
         Opublikowany {{ post.publish }} by {{ post.author }}
         {% if post.updated > post.timestamp %}
