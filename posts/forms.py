@@ -22,7 +22,8 @@ class PostForm(forms.ModelForm):
     DATEPICKER = {
         'type': "text",
     }
-    content = forms.CharField(widget=PagedownWidget(show_preview=False))
+    help_text = '<a href="http://pygments.org/docs/lexers/">Language syntax</a>, <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown cheatsheet</a>'
+    content = forms.CharField(widget=PagedownWidget(show_preview=False), help_text=help_text)
     publish = forms.DateTimeField(widget=forms.widgets.Input(attrs=DATEPICKER))
 
     def __init__(self, *args, publish_disabled=False, **kwargs ):

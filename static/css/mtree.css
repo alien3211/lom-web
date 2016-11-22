@@ -132,8 +132,12 @@ ul.mtree.transit li.mtree-node > a:before {
 ul.mtree.transit li.mtree-open > span:before {
   content: '-';
 }
-ul.mtree.transit li.mtree-closed > span:before {
+ul.mtree.transit li.mtree-closed.mtree-node  > span:before {
   content: '+';
+}
+ul.mtree.transit li  > span:before,
+ul.mtree.transit li.mtree-closed  > span:before {
+  content: '-';
 }
 ul.mtree.transit ul > li:first-child {
   margin-top: 1px;
