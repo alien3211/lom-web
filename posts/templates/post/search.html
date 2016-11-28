@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}Moj blog | Search{% endblock %}
+{% block title %}Search
+    {% if "query" in request.GET %}
+        {{ cd.query }}
+    {% endif %}
+{% endblock %}
 {% block content %}
 <div class="col-md-6">
     {% if "query" in request.GET %}

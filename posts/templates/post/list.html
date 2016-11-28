@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load post_tags %}
-{% block title %}Moj blog {% endblock %}
+{% block title %}
+    {% if tag %}
+        Tag: {{ tag.name }}
+    {% else %}
+    List Posts
+    {% endif %}
+{% endblock %}
 {% block content %}
 <div class="col-md-6">
     {% if tag %}
