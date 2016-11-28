@@ -25,6 +25,7 @@
               integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 {#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css" />#}
+        <link href="{% url 'posts:feed' %}" rel="alternate" title="LOM latest posts" type="application/atom+xml">
 
         {% block head_extra %}{% endblock head_extra %}
     </head>

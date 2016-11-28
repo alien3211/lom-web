@@ -30,10 +30,10 @@ sitemaps = {
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^posts/', include('posts.urls', namespace='posts'), name='main-page'),
     url(r'comments/', include('comments.urls', namespace='comments')),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-    name='django.contrib.sitemaps.views.sitemap')
+    name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^', include('posts.urls', namespace='posts'), name='main-page'),
 ]
 
 if settings.DEBUG:

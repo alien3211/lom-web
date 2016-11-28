@@ -43,7 +43,7 @@ SECRET_KEY = get_secret_key(BASE_DIR)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://127.0.0.1', 'http://localhost', 'localhost', '/http://94.177.253.7', '94.177.253.7']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://127.0.0.1', 'http://localhost', 'localhost', 'http://94.177.253.7', '94.177.253.7', 'http://lomweb.pl', 'lomweb.pl', 'http://alan-tetich.pl', 'alan-tetich.pl']
 
 # Application definition
 
