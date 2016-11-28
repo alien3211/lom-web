@@ -10,6 +10,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.utils import timezone
 from django.core.mail import send_mail
 from haystack.management.commands import update_index
 
@@ -181,13 +182,22 @@ def post_update(request, slug=None):
         raise Http404
     if not request.user.is_authenticated():
         raise Http404
+
     instance = get_object_or_404(Post, slug=slug)
+    publish_disabled = True if instance.status != 'draft' else False
+
     if instance.author != request.user:
         raise Http404
 
-    form = PostForm(request.POST or None, instance=instance, publish_disabled=True)
+    form = PostForm(request.POST or None, instance=instance, publish_disabled=publish_disabled)
     if form.is_valid():
         instance = form.save(commit=False)
+        date_now = timezone.now()
+        print("PUBLISH ", instance.publish)
+        print("NOW ", date_now)
+        print("SUBSTRACTION ", (date_now - instance.publish ).total_seconds())
+        if (date_now - instance.publish ).total_seconds() > 60:
+            instance.publish = date_now
         instance.save()
         form.save_m2m()
         messages.success(request, "Updated")
