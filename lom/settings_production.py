@@ -194,6 +194,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 LOGIN_REDIRECT_URL = 'posts:list'
 LOGIN_URL = 'posts:list'
 ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy('posts:list')
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
 
 
 POST_PER_PAGE = 5
