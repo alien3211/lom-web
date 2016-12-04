@@ -32,7 +32,7 @@ class Post(models.Model):
         ('published', 'Opublikowany'),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=250)
     author = models.ForeignKey(User, related_name='blog_posts')
     content = models.TextField()
     publish = models.DateTimeField(default=timezone.now)

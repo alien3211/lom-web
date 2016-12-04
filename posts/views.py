@@ -166,7 +166,6 @@ def post_create(request):
         messages.success(request, "Saved")
         # update solr indexing
         update_index.Command().handle()
-        print("AFTER UPDATE")
         if instance.status == "draft":
             return HttpResponseRedirect(reverse('posts:draft_list'))
         else:
@@ -193,9 +192,6 @@ def post_update(request, slug=None):
     if form.is_valid():
         instance = form.save(commit=False)
         date_now = timezone.now()
-        print("PUBLISH ", instance.publish)
-        print("NOW ", date_now)
-        print("SUBSTRACTION ", (date_now - instance.publish ).total_seconds())
         if (date_now - instance.publish ).total_seconds() > 60:
             instance.publish = date_now
         instance.save()
@@ -248,7 +244,6 @@ def post_category(request, id=None, path=None):
 
     if request.GET.get('deep_search'):
         object_list = list(chain(*[x.post_set.filter(status='published') for x in deep_categories]))
-        print(object_list)
 
     paginator = Paginator(object_list, settings.POST_PER_PAGE)
     page = request.GET.get('page')
