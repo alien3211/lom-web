@@ -161,6 +161,9 @@ def post_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.author = request.user
+        date_now = timezone.now()
+        if (date_now - instance.publish ).total_seconds() > 60:
+            instance.publish = date_now
         instance.save()
         form.save_m2m()
         messages.success(request, "Saved")
@@ -191,9 +194,6 @@ def post_update(request, slug=None):
     form = PostForm(request.POST or None, instance=instance, publish_disabled=publish_disabled)
     if form.is_valid():
         instance = form.save(commit=False)
-        date_now = timezone.now()
-        if (date_now - instance.publish ).total_seconds() > 60:
-            instance.publish = date_now
         instance.save()
         form.save_m2m()
         messages.success(request, "Updated")
